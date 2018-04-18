@@ -1,0 +1,33 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Dialog 非 AMD CMD Test</title>
+	<script src="http://js.letvcdn.com/lc06_lecloud/201611/28/17/05/jquery-1.11.3.js"></script>
+	<script type="text/javascript">
+		/**
+		 * 非 AMD 和 CMD 加载的环境需要实现require函数
+		 * @return {Query} 内部依赖类似jQuery类库的Query库
+		 */
+		/*function require(){
+			return $
+		}*/
+	</script>
+	<script src="../dialog/v1/dialog.js"></script>
+	<script src="../area.in/v1/area.in.js"></script>
+	<script src="v1/event.runer.js"></script>
+	<link rel="stylesheet" type="text/css" href="../dialog/css/dialog.css"/>
+</head>
+<body>
+	<span id="test" event-handle="request" data-id="10" data-app-name="apple" data-uri="http://baidu.com" >点我</span>
+	<script type="text/javascript">
+		var er = require( 'event.runer' );
+		er.ajax = $.ajax;
+		er.add( 'test', function( ){
+			console.log(arguments, this)
+		} )
+		er.listen( window, '[event-handle]', 'click' );
+		er.add( 'request', er.request );
+		console.log(er)
+	</script>
+</body>
+</html>
